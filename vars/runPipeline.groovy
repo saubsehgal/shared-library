@@ -46,8 +46,11 @@ def call(Map options = [:]) {
             println("scm before")    
             def scmCheckoutStage = new ScmCheckoutStage(pipelineScript: this, pipelineOptions: options, 
                     buildPipeline: pipeline)
+            
             println("scm after")
+            println("${scmCheckoutStage.getName()}")
             stage(scmCheckoutStage.name) {
+                
                 executeStage(scmCheckoutStage, exceptions)
                 COMMIT_ID = options.commit_id
                 GIT_REMOTE = options.git_remote
