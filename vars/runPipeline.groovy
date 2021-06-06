@@ -23,12 +23,13 @@ def call(Map options = [:]) {
         error("Cannot skipHelm and skipDocker")
     }
 
-
+    println("Before TARGET_ENVIRONMENTS")
     def TARGET_ENVIRONMENTS = [
     ]
     if (!TARGET_ENVIRONMENTS[options.targetEnvironment]) {
         error("Environment ${options.targetEnvironment} is not supported")
     }
+    println("After TARGET_ENVIRONMENTS")
 
     def REPO_NAME = options.repositoryName
     def REPO = "local/${REPO_NAME}"
