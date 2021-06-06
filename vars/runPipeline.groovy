@@ -127,6 +127,7 @@ def dockerBuild(buildArgs, IMAGE_LABEL) {
  */
 void executeStage(Stage stage, List<?> exceptions) {
     try {
+        println("inside execute")
         stage.execute()
     } catch (Exception e) {
         exceptions.add([stage: stage, exception: e])
