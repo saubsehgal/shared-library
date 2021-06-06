@@ -24,7 +24,9 @@ abstract class Stage implements Serializable {
      * @throws Exception generic exception for all kinds of failures
      */
     void execute() throws Exception {
+        println("inside stage")
         pipelineOptions['stage_statuses'][pipelineScript.env.STAGE_NAME] = "FAILURE"
+        println("Executing core logic")
         executeCoreLogic()
         pipelineOptions['stage_statuses'][pipelineScript.env.STAGE_NAME] = "SUCCESS"
     }
