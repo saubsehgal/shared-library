@@ -24,8 +24,7 @@ def call(Map options = [:]) {
     }
 
     println("Before TARGET_ENVIRONMENTS")
-    def TARGET_ENVIRONMENTS = [
-    ]
+    def TARGET_ENVIRONMENTS = ["dev" : "dev"]
     if (!TARGET_ENVIRONMENTS[options.targetEnvironment]) {
         error("Environment ${options.targetEnvironment} is not supported")
     }
