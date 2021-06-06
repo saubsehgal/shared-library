@@ -93,7 +93,7 @@ def call(Map options = [:]) {
             throw e
         } finally {
 
-            def cleanStage = new CleanStage(pipelineScript: this, pipelineOptions: options, txp: pipeline)
+            def cleanStage = new CleanStage(pipelineScript: this, pipelineOptions: options, buildPipeline: pipeline)
             stage(cleanStage.name) {
                 executeStage(cleanStage, exceptions)
             }
