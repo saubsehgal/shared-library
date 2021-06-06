@@ -51,7 +51,7 @@ def call(Map options = [:]) {
             println("${scmCheckoutStage.getName()}")
             stage(scmCheckoutStage.name) {
                 println("inside")
-                executeStage(scmCheckoutStage, exceptions)
+                executeSCMStage(scmCheckoutStage, exceptions)
                 COMMIT_ID = options.commit_id
                 GIT_REMOTE = options.git_remote
             }
@@ -131,6 +131,18 @@ void executeStage(Stage stage, List<?> exceptions) {
         println("${stage.getName()}")
 
         stage.execute()
+    } catch (Exception e) {
+        exceptions.add([stage: stage, exception: e])
+        error("{$stage.name} failed: {$e.message}")
+    }
+}
+
+void executeSCMStage(ScmCheckoutStage stage, List<?> exceptions) {
+    try {
+        println("inside SCM execute")
+        println("${stage.getName()}")
+
+        stage.executeCoreLogic()
     } catch (Exception e) {
         exceptions.add([stage: stage, exception: e])
         error("{$stage.name} failed: {$e.message}")
