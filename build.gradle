@@ -1,0 +1,62 @@
+
+plugins {
+}
+
+group 'jenkins-shared-library'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'groovy'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven {url "https://repo.jenkins-ci.org/releases/"}
+}
+
+configurations { }
+
+// Exclude buggy Xalan dependency this way the JRE default TransformerFactory is used
+// The xalan pulled in by htmlunit does not properly deal with spaces folder / job names
+configurations.all*.exclude group: 'xalan'
+
+dependencies {
+    compile "com.cloudbees:groovy-cps:1.22"
+    compile 'org.codehaus.groovy:groovy-all:2.4.11'
+    compile "org.jenkins-ci.plugins:job-dsl-core:${jobDslVersion}"
+    compile "org.jenkins-ci.plugins:s3:0.10.12"
+    compile "org.jenkins-ci.plugins:job-dsl:${jobDslVersion}@jar"
+    compile "org.yaml:snakeyaml:1.21"
+
+    // Jenkins test harness dependencies
+    testCompile "org.jenkins-ci.main:jenkins-test-harness:2.22"
+    // Jenkins test pipeline library
+    testCompile "com.lesfurets:jenkins-pipeline-unit:1.3"
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['vars','src']
+        }
+        resources {
+            srcDirs = ['resources']
+        }
+    }
+    test {
+        groovy {
+            srcDirs = ['test_src']
+        }
+        resources {
+            srcDirs = ['test_resources']
+        }
+    }
+}
+
+test {
+    systemProperty "grape.config", "test_resources/testGrapeConfig.xml"
+
+    useJUnit()
+    testLogging {
+        events 'started', 'passed'
+    }
+}
