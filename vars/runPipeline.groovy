@@ -50,7 +50,7 @@ def call(Map options = [:]) {
             println("scm after")
             println("${scmCheckoutStage.getName()}")
             stage(scmCheckoutStage.name) {
-                
+                println("inside")
                 executeStage(scmCheckoutStage, exceptions)
                 COMMIT_ID = options.commit_id
                 GIT_REMOTE = options.git_remote
