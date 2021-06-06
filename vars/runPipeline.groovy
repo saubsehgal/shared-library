@@ -57,6 +57,7 @@ def call(Map options = [:]) {
             }
 
             options.docker_image = "${options.repo}:${options.commit_id}"
+            println("Build Docker Image")
             // Build Docker Image
             def buildStage = new BuildStage(pipelineScript: this, pipelineOptions: options, dockerArgs: dockerArgs)
             stage(buildStage.name) {

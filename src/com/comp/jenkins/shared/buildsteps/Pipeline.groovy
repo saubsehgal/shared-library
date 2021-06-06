@@ -29,7 +29,7 @@ class Pipeline implements Serializable {
     def stageCheckoutSCM(){
 
         this.options['stageHook'].call("PRE", "Build")
-        this.dockerCleanup("dangling=true")
+//        this.dockerCleanup("dangling=true")
         // Checkout the current commit
         script.checkout this.scm
     }
