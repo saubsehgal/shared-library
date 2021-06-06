@@ -43,8 +43,10 @@ def call(Map options = [:]) {
 
     node("docker-build-agent") {
         try {
-
-            def scmCheckoutStage = new ScmCheckoutStage(pipelineScript: this, pipelineOptions: options, buildPipeline: pipeline)
+            println("scm before")    
+            def scmCheckoutStage = new ScmCheckoutStage(pipelineScript: this, pipelineOptions: options, 
+                    buildPipeline: pipeline)
+            println("scm after")
             stage(scmCheckoutStage.name) {
                 executeStage(scmCheckoutStage, exceptions)
                 COMMIT_ID = options.commit_id

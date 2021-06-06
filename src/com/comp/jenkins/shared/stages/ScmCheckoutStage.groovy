@@ -17,6 +17,7 @@ class ScmCheckoutStage extends Stage {
 
     @Override
     protected void executeCoreLogic() {
+        println("executing scm check out")
         buildPipeline.stageCheckoutSCM()
         pipelineOptions.commit_id = pipelineScript.sh(returnStdout: true, script: "git rev-parse --short=7 HEAD").trim()
         pipelineOptions.git_remote = pipelineScript.sh(returnStdout: true, script: 'git config remote.origin.url').trim()
