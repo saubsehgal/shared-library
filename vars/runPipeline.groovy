@@ -28,7 +28,7 @@ def call(Map options = [:]) {
     def REPO_NAME = options.repositoryName
     println("repo name=${options.repositoryName}")
 
-    println(${REPO_NAME})
+    println("${REPO_NAME}")
 
     def REPO = "local/${REPO_NAME}"
     String COMMIT_ID = ""
