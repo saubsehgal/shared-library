@@ -131,7 +131,7 @@ void executeStage(Stage stage, List<?> exceptions) {
         println("inside execute")
         println("${stage.getName()}")
         println("${stage.getClass()}")    
-        stage.execute()
+        stage.executeCoreLogic()
     } catch (Exception e) {
         exceptions.add([stage: stage, exception: e])
         error("{$stage.name} failed: {$e.message}")
