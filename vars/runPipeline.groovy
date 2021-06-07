@@ -130,7 +130,7 @@ void executeStage(Stage stage, List<?> exceptions) {
     try {
         println("inside execute")
         println("${stage.getName()}")
-
+        println("${stage.getClass()}")    
         stage.execute()
     } catch (Exception e) {
         exceptions.add([stage: stage, exception: e])
