@@ -25,6 +25,9 @@ class BuildStage extends Stage {
         build_args_list.add("--build-arg 'COMMIT_ID=${pipelineOptions.commit_id}'")
         build_args_list.add(dockerArgs)
         build_args_list.add("-t ${pipelineOptions.docker_image} .")
+        println(" ${build_args_list.join(" ")}")
+        println(" ${pipelineOptions.image_label} ")
+
         pipelineScript.dockerBuild(build_args_list.join(" "), pipelineOptions.image_label)
         pipelineOptions['stageHook'].call("POST", "Build")
     }
