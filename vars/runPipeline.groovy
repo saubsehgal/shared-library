@@ -135,6 +135,8 @@ void executeStage(Stage stage, List<?> exceptions) {
     } catch (Exception e) {
         exceptions.add([stage: stage, exception: e])
         error("{$stage.name} failed: {$e.message}")
+        error("{$stage.name} failed: {$e.stackTrace}")
+
     }
 }
 
