@@ -21,5 +21,6 @@ class ScmCheckoutStage extends Stage {
         buildPipeline.stageCheckoutSCM()
         pipelineOptions.commit_id = pipelineScript.sh(returnStdout: true, script: "git rev-parse --short=7 HEAD").trim()
         pipelineOptions.git_remote = pipelineScript.sh(returnStdout: true, script: 'git config remote.origin.url').trim()
+        pipelineOptions['stageHook'].call("POST", "SCM")
     }
 }
