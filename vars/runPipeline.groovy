@@ -51,7 +51,7 @@ def call(Map options = [:]) {
             println("${scmCheckoutStage.getName()}")
             stage(scmCheckoutStage.name) {
                 println("inside")
-                executeSCMStage(scmCheckoutStage, exceptions)
+                executeStage(scmCheckoutStage, exceptions)
                 COMMIT_ID = options.commit_id
                 GIT_REMOTE = options.git_remote
             }
@@ -68,7 +68,7 @@ def call(Map options = [:]) {
             def testImageStage = new TestImage(pipelineScript: this, pipelineOptions: options,
                 dockerArgs: "/bin/bash -c \"nginx -v && test -f nginx.conf\"")
             stage(testImageStage.name) {
-                executeStage(buildStage, exceptions)
+                executeStage(testImageStage, exceptions)
             }
 
             // Scan Docker Image
@@ -139,18 +139,6 @@ void executeStage(Stage stage, List<?> exceptions) {
         error("{$stage.name} failed: {$e.message}")
         error("{$stage.name} failed: {$e.stackTrace}")
 
-    }
-}
-
-void executeSCMStage(ScmCheckoutStage stage, List<?> exceptions) {
-    try {
-        println("inside SCM execute")
-        println("${stage.getName()}")
-
-        stage.executeCoreLogic()
-    } catch (Exception e) {
-        exceptions.add([stage: stage, exception: e])
-        error("{$stage.name} failed: {$e.message}")
     }
 }
 

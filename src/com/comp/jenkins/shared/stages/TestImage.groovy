@@ -8,7 +8,7 @@ class TestImage extends Stage {
 
     @Override
     String getName() {
-        return "Scan Image"
+        return "Test Image"
     }
 
     @Override
