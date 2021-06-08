@@ -85,7 +85,7 @@ def call(Map options = [:]) {
             }
 
             // Deploy to Environment only when on master branch
-            if (!options.skipHelm && BRANCH_NAME == options.primaryBranch) {
+            if (!options.skipHelm && "${env.BRANCH_NAME}" == options.primaryBranch) {
                 //TODO
             }
 
