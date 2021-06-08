@@ -15,7 +15,7 @@ class CleanStage extends Stage {
     @Override
     protected void executeCoreLogic() {
 
-        pipelineScript.cleanWs()
+//        pipelineScript.cleanWs()
         buildPipeline.dockerCleanup("label=build=${pipelineOptions.image_label}")
         pipelineScript.currentBuild.result = pipelineScript.currentBuild.result ?: 'SUCCESS'
     }

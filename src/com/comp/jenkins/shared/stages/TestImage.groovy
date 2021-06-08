@@ -16,7 +16,7 @@ class TestImage extends Stage {
         return "Test a image"
     }
 
-    // Currently it nginx version and if nginx conf file is there or not
+    // Currently tests it nginx version and if nginx conf file is there or not
     @Override
     protected void executeCoreLogic() {
         exitStatus = pipelineScript.sh "docker run ${pipelineOptions.docker_image} ${dockerArgs}"
