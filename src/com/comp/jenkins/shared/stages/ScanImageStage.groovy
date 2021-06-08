@@ -21,6 +21,7 @@ class ScanImageStage extends Stage {
         try {
             pipelineScript.aqua locationType: 'local', localImage: "${pipelineOptions.docker_image}", hideBase: false, notCompliesCmd: '', onDisallowed: 'ignore', showNegligible: false, customFlags: '-D'
         } catch (Exception e) {
+            println(e)
             pipelineScript.echo "AQUA: Ignoring all errors in the pipeline during this phase"
         }
         pipelineOptions['stageHook'].call("POST", "Scan Image")

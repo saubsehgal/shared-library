@@ -20,7 +20,7 @@ class TestImage extends Stage {
     @Override
     protected void executeCoreLogic() {
         def exitStatus = pipelineScript.sh(script: "docker run ${pipelineOptions.docker_image} ${dockerArgs}", returnStatus: true)
-        println("${exitStatus}")
+        println("exitStatus ${exitStatus}")
         if (exitStatus != 0) {
             error("Component Test Failed - Docker run exited with status code of ${exitStatus}")
         }
