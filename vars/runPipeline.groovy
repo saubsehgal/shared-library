@@ -78,6 +78,7 @@ def call(Map options = [:]) {
             }
             
             println(" Branch - ${env.BRANCH_NAME}")
+            println(" Branch - ${env.GIT_BRANCH}")
 
             if ("${env.BRANCH_NAME}" == options.primaryBranch) {
                 def publishImageStage = new PublishImageStage(pipelineScript: this, pipelineOptions: options)
