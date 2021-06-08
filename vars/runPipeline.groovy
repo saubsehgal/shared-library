@@ -76,6 +76,8 @@ def call(Map options = [:]) {
             stage(scanImageStage.name) {
                 executeStage(scanImageStage, exceptions)
             }
+            
+            println(" Branch - ${env.BRANCH_NAME}")
 
             if ("${env.BRANCH_NAME}" == options.primaryBranch) {
                 def publishImageStage = new PublishImageStage(pipelineScript: this, pipelineOptions: options)
