@@ -26,10 +26,6 @@ def call(Map options = [:]) {
     def TARGET_ENVIRONMENTS = ["dev" : "dev"]
     
     def REPO_NAME = options.repositoryName
-    println("repo name=${options.repositoryName}")
-
-    println("${REPO_NAME}")
-
     def REPO = "local/${REPO_NAME}"
     String COMMIT_ID = ""
     def GIT_REMOTE = ""
@@ -43,21 +39,17 @@ def call(Map options = [:]) {
 
     node("docker-build-agent") {
         try {
-            println("scm before")    
             def scmCheckoutStage = new ScmCheckoutStage(pipelineScript: this, pipelineOptions: options, 
                     buildPipeline: pipeline)
             
-            println("scm after")
-            println("${scmCheckoutStage.getName()}")
             stage(scmCheckoutStage.name) {
-                println("inside")
                 executeStage(scmCheckoutStage, exceptions)
                 COMMIT_ID = options.commit_id
                 GIT_REMOTE = options.git_remote
             }
 
             options.docker_image = "${options.repo}:${options.commit_id}"
-            println("Build Docker Image")
+
             // Build Docker Image
             def buildStage = new BuildStage(pipelineScript: this, pipelineOptions: options, dockerArgs: "--cpu-shares 2048")
             stage(buildStage.name) {
@@ -76,9 +68,6 @@ def call(Map options = [:]) {
             stage(scanImageStage.name) {
                 executeStage(scanImageStage, exceptions)
             }
-            
-            println(" Branch - ${env.BRANCH_NAME}")
-            println(" Branch - ${env.GIT_BRANCH}")
 
             if ("${env.BRANCH_NAME}" == options.primaryBranch) {
                 def publishImageStage = new PublishImageStage(pipelineScript: this, pipelineOptions: options)
@@ -131,9 +120,6 @@ def dockerBuild(buildArgs, IMAGE_LABEL) {
  */
 void executeStage(Stage stage, List<?> exceptions) {
     try {
-        println("inside execute")
-        println("${stage.getName()}")
-        println("${stage.getClass()}")    
         stage.executeCoreLogic()
     } catch (Exception e) {
         exceptions.add([stage: stage, exception: e])

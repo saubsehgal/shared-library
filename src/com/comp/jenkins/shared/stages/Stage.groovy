@@ -16,20 +16,7 @@ abstract class Stage implements Serializable {
 
     /** Reference to pipeline which has many methods needed by stages. */
     protected buildPipeline
-
-
-    /**
-     * Executes stages common logic and calls {@link #executeCoreLogic()}.
-     *
-     * @throws Exception generic exception for all kinds of failures
-     */
-    void execute() throws Exception {
-        println("inside stage")
-        pipelineOptions['stage_statuses'][pipelineScript.env.STAGE_NAME] = "FAILURE"
-        println("Executing core logic")
-        executeCoreLogic()
-        pipelineOptions['stage_statuses'][pipelineScript.env.STAGE_NAME] = "SUCCESS"
-    }
+    
 
     abstract String getName()
 
